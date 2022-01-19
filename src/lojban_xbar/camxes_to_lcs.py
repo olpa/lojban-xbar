@@ -3,12 +3,12 @@ import collections
 import sys
 import typing
 
-from .lexp import is_node_name, is_bar_node, is_max_node
 from lxslt import MatchNameCondition, Rule, TransformChildren,\
     MatchName, TreeNode, NodeSet, select, SelectStep, DeepDive,\
     apply_templates, Transformer, Replace, apply_templates_iter,\
     project_children, Drop, flatten_node_sets,\
     TransformRename, Matcher, SelectStepNorm
+from .lexp import is_node_name, is_bar_node, is_max_node
 
 
 def match_name_begin(name: str) -> Matcher:
