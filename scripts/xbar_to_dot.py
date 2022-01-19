@@ -1,12 +1,16 @@
 from __future__ import annotations
 import argparse
+import os
 import sys
 
 import typing
 
-from mnlg.xbar.types import XBarBase, XSpecTag, XMax, XSpec, XHead, str_tag
-from mnlg.xbar.types import isinstance_xspec, XBarFrame, XBarRec
-from mnlg.xbar import lexp
+if 'LOJBAN_XBAR_DEVEL' in os.environ:
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../src'))
+
+from lojban_xbar import lexp
+from lojban_xbar import XBarBase, XSpecTag, XMax, XSpec, XHead, str_tag
+from lojban_xbar import isinstance_xspec, XBarFrame, XBarRec
 
 
 def get_indent(level: int) -> str:
