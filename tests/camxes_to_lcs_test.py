@@ -3,7 +3,7 @@ from hamcrest import assert_that, equal_to
 
 from util.fixture import load_camxes_parses, load_lcs
 
-from lojban_xbar.camxes_to_lcs import camxes_to_lcs, SumtiAllocator
+from lojban_xbar.camxes_to_xbar import camxes_to_xbar, SumtiAllocator
 
 
 def wrap_i_max(v_max):
@@ -28,7 +28,7 @@ class CamxesToLcsTest(unittest.TestCase):
         tree = ['sumti_6', ['LA_clause', [['LA', 'la']]],
                 [['CMEVLA_clause', [['CMEVLA', ['cmevla', 'djan']]]]]]
 
-        lcs = camxes_to_lcs(tree)
+        lcs = camxes_to_xbar(tree)
 
         assert_that(lcs, equal_to(
             ['N-MAX', ['N-BAR', ['N', ['tag', 'pn'], 'djan']]]))
@@ -37,7 +37,7 @@ class CamxesToLcsTest(unittest.TestCase):
     def test_pronoun():
         tree = ["sumti_6", ["KOhA_clause", [["KOhA", "mi"]]]]
 
-        lcs = camxes_to_lcs(tree)
+        lcs = camxes_to_xbar(tree)
 
         assert_that(lcs, equal_to(
             ['N-MAX', ['N-BAR', ['N', ['tag', 'pron'], 'mi']]]))
@@ -51,7 +51,7 @@ class CamxesToLcsTest(unittest.TestCase):
                    ["BRIVLA_clause", [["BRIVLA",
                     ["gismu", "kumfa"]]]]]]]]]]]]]]]], ["KU"]]
 
-        lcs = camxes_to_lcs(tree)
+        lcs = camxes_to_xbar(tree)
 
         assert_that(lcs, equal_to(
             ['D-MAX', ['D-BAR', ['D', 'le'],
@@ -62,7 +62,7 @@ class CamxesToLcsTest(unittest.TestCase):
         # 'pu prami', only 'pu' is interesting in the test
         tree = CamxesToLcsTest.trees['pu_prami']
 
-        lcs = camxes_to_lcs(tree)
+        lcs = camxes_to_xbar(tree)
 
         assert_that(lcs, equal_to(
             ['I-MAX', ['I-BAR', ['I', ['tag', 'pu']],
@@ -72,7 +72,7 @@ class CamxesToLcsTest(unittest.TestCase):
     def test_selbri_alone():
         tree = CamxesToLcsTest.trees['prami']
 
-        lcs = camxes_to_lcs(tree)
+        lcs = camxes_to_xbar(tree)
 
         assert_that(lcs, equal_to(wrap_i_v_max('prami')))
 
@@ -80,7 +80,7 @@ class CamxesToLcsTest(unittest.TestCase):
     def test_selbri_adjunct():
         tree = CamxesToLcsTest.trees['barda_prami']
 
-        lcs = camxes_to_lcs(tree)
+        lcs = camxes_to_xbar(tree)
 
         assert_that(lcs, equal_to(
             wrap_i_max(['V-MAX',
@@ -92,7 +92,7 @@ class CamxesToLcsTest(unittest.TestCase):
     def test_compound_selbri():
         tree = CamxesToLcsTest.trees['ti_melbi_cmalu_nixli_ckule']
 
-        lcs = camxes_to_lcs(tree)
+        lcs = camxes_to_xbar(tree)
 
         assert_that(lcs, equal_to(
             wrap_i_max(['V-MAX',
@@ -113,7 +113,7 @@ class CamxesToLcsTest(unittest.TestCase):
     def test_selbri_moi():
         tree = CamxesToLcsTest.trees['vomoi']
 
-        lcs = camxes_to_lcs(tree)
+        lcs = camxes_to_xbar(tree)
 
         assert_that(lcs, equal_to(
             ['I-MAX', ['I-BAR', ['I'],
@@ -125,7 +125,7 @@ class CamxesToLcsTest(unittest.TestCase):
     def test_compound_selbri_moi():
         tree = CamxesToLcsTest.trees['vomoi_klama']
 
-        lcs = camxes_to_lcs(tree)
+        lcs = camxes_to_xbar(tree)
 
         assert_that(lcs, equal_to(
             ['I-MAX', ['I-BAR', ['I'],
@@ -141,7 +141,7 @@ class CamxesToLcsTest(unittest.TestCase):
     def test_nu_clause():
         tree = CamxesToLcsTest.trees['nu_prami_kei_klama']
 
-        lcs = camxes_to_lcs(tree)
+        lcs = camxes_to_xbar(tree)
 
         assert_that(lcs, equal_to(
             wrap_i_max(
@@ -156,7 +156,7 @@ class CamxesToLcsTest(unittest.TestCase):
     def test_joi():
         tree = CamxesToLcsTest.trees['mi_cehe_do_ceho_maha_klama']
 
-        lcs = camxes_to_lcs(tree)
+        lcs = camxes_to_xbar(tree)
 
         j_maha = ['J-MAX', ['J-BAR',
                             ['J', "ce'o"],
@@ -182,7 +182,7 @@ class CamxesToLcsTest(unittest.TestCase):
     def test_poi():
         tree = CamxesToLcsTest.trees['lo_prami_poi_barda_kuho_klama']
 
-        lcs = camxes_to_lcs(tree)
+        lcs = camxes_to_xbar(tree)
 
         assert_that(lcs, equal_to(
             wrap_i_v_max(
@@ -200,7 +200,7 @@ class CamxesToLcsTest(unittest.TestCase):
     def test_ja():
         tree = CamxesToLcsTest.trees['kulnu_je_canja_je_jdini_midju']
 
-        lcs = camxes_to_lcs(tree)
+        lcs = camxes_to_xbar(tree)
 
         assert_that(lcs, equal_to(
             wrap_i_max(
@@ -221,7 +221,7 @@ class CamxesToLcsTest(unittest.TestCase):
     def test_fa():
         tree = CamxesToLcsTest.trees['fi_mi_klama_fa_do']
 
-        lcs = camxes_to_lcs(tree)
+        lcs = camxes_to_xbar(tree)
 
         assert_that(lcs, equal_to(
             wrap_i_v_max(
@@ -235,7 +235,7 @@ class CamxesToLcsTest(unittest.TestCase):
     def test_be_bei():
         tree = CamxesToLcsTest.trees['barda_be_mi_bei_fi_do_klama']
 
-        lcs = camxes_to_lcs(tree)
+        lcs = camxes_to_xbar(tree)
 
         assert_that(lcs, equal_to(
             wrap_i_max(
@@ -255,7 +255,7 @@ class CamxesToLcsTest(unittest.TestCase):
     def test_sumti_with_be():
         tree = CamxesToLcsTest.trees['mi_klama_be_fe_do']
 
-        lcs = camxes_to_lcs(tree)
+        lcs = camxes_to_xbar(tree)
 
         assert_that(lcs, equal_to(
             wrap_i_v_max(
@@ -268,7 +268,7 @@ class CamxesToLcsTest(unittest.TestCase):
     def test_mix_bei_poi():
         tree = CamxesToLcsTest.trees['sutra_be_zohe_poi_barda_beho_klama']
 
-        lcs = camxes_to_lcs(tree)
+        lcs = camxes_to_xbar(tree)
 
         assert_that(lcs, equal_to(
             wrap_i_max(
@@ -292,7 +292,7 @@ class CamxesToLcsTest(unittest.TestCase):
     def test_goi():
         tree = CamxesToLcsTest.trees['mi_goi_koha_klama']
 
-        lcs = camxes_to_lcs(tree)
+        lcs = camxes_to_xbar(tree)
 
         assert_that(lcs, equal_to(
             wrap_i_v_max(
@@ -306,7 +306,7 @@ class CamxesToLcsTest(unittest.TestCase):
     def test_me():
         tree = CamxesToLcsTest.trees['me_lo_sutra_mehu_klama']
 
-        lcs = camxes_to_lcs(tree)
+        lcs = camxes_to_xbar(tree)
 
         assert_that(lcs, equal_to(
             wrap_i_max(
@@ -322,7 +322,7 @@ class CamxesToLcsTest(unittest.TestCase):
     def test_quantifier():
         tree = CamxesToLcsTest.trees['re_prenu']
 
-        lcs = camxes_to_lcs(tree)
+        lcs = camxes_to_xbar(tree)
 
         assert_that(lcs, equal_to(
             ['fragment',
@@ -335,7 +335,7 @@ class CamxesToLcsTest(unittest.TestCase):
     def test_quantifier_in_lo():
         tree = CamxesToLcsTest.trees['lo_re_prenu']
 
-        lcs = camxes_to_lcs(tree)
+        lcs = camxes_to_xbar(tree)
 
         assert_that(lcs, equal_to(
             ['fragment',
@@ -351,7 +351,7 @@ class CamxesToLcsTest(unittest.TestCase):
     def test_quantifier_with_compound_selbri():
         tree = CamxesToLcsTest.trees['re_sutra_klama']
 
-        lcs = camxes_to_lcs(tree)
+        lcs = camxes_to_xbar(tree)
 
         assert_that(lcs, equal_to(
             ['fragment',
@@ -366,7 +366,7 @@ class CamxesToLcsTest(unittest.TestCase):
     def test_se():
         tree = CamxesToLcsTest.trees['mi_xe_dunda']
 
-        lcs = camxes_to_lcs(tree)
+        lcs = camxes_to_xbar(tree)
 
         assert_that(lcs, equal_to(
             wrap_i_max(
@@ -459,7 +459,7 @@ class CamxesToLcsExamplesTest(unittest.TestCase):
         expected_lcs = self.lcs[code_name]
         source_camxes = self.trees[code_name]
 
-        lcs = camxes_to_lcs(source_camxes)
+        lcs = camxes_to_xbar(source_camxes)
 
         assert_that(lcs, equal_to(expected_lcs))
 

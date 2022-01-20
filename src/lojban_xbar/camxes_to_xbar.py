@@ -591,7 +591,7 @@ class TransformKoha(Transformer):
         return [['N', ['tag', 'pron'], word]]
 
 
-def camxes_to_lcs(tree) -> list:
+def camxes_to_xbar(tree) -> list:
     matcher_text = match_name_begin('text')
     skip_text = Rule(matcher_text, TransformChildren())
     matcher_paragraph = match_name_begin('paragraph')
@@ -705,11 +705,3 @@ def camxes_to_lcs(tree) -> list:
     ], tree)
     assert len(s_tree) == 1
     return s_tree[0]
-
-
-if '__main__' == __name__:
-    import json
-    camxes_tree = json.load(sys.stdin)
-    lcs_tree = camxes_to_lcs(camxes_tree)
-    json.dump(lcs_tree, sys.stdout)
-    print('')
