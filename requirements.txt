@@ -1,0 +1,4 @@
+lxslt @ https://github.com/olpa/python-lxslt/archive/refs/tags/v0.1.0.zip
+
+# Not needed for the package self, but you want to have `camxes.py`
+# https://github.com/lojban/camxes-py/archive/refs/tags/v0.10.0.zip
